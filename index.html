@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vortex Hub | Next-Gen Crypto Terminal 🔮</title>
+    <style>
+        /* ================= 🌌 VORTEX PREMIUM OBSIDIAN THEME ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #070412; color: #f3f0ff; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+
+        /* 📡 CORE NAVIGATION (Sirf Vortex Pages Ke Beech Connection) */
+        .vortex-nav { background: #0f0a26; padding: 15px 8%; border-bottom: 1px solid rgba(168, 85, 247, 0.2); display: flex; gap: 30px; }
+        .vortex-nav a { text-decoration: none; color: #a855f7; font-weight: 700; font-size: 1rem; transition: 0.3s; }
+        .vortex-nav a.active, .vortex-nav a:hover { color: #e879f9; text-shadow: 0 0 10px rgba(232, 121, 249, 0.4); }
+
+        /* 🚀 TOP LIVE MARQUEE TICKER (Real Data Will Inject Here) */
+        .ticker-wrap { background: #120b2e; border-bottom: 1px solid rgba(168, 85, 247, 0.1); padding: 12px 0; overflow: hidden; width: 100%; }
+        .ticker { display: flex; gap: 50px; animation: tickerMove 25s linear infinite; white-space: nowrap; width: max-content; }
+        .ticker-item { font-size: 0.95rem; font-weight: 700; color: #c084fc; display: flex; align-items: center; gap: 8px; }
+
+        @keyframes tickerMove {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* 📡 DASHBOARD CONTAINER */
+        .dashboard-wrapper { flex: 1; padding: 40px 8%; max-width: 1300px; margin: 0 auto; width: 100%; }
+        
+        .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; flex-wrap: wrap; gap: 15px; }
+        .dash-title { font-size: 2.2rem; font-weight: 800; }
+        .dash-title span { background: linear-gradient(135deg, #c084fc 0%, #e879f9 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .live-badge { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); color: #22c55e; padding: 6px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .pulse-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; animation: pulseLight 1s infinite alternate; }
+        @keyframes pulseLight { 0% { box-shadow: 0 0 0px #22c55e; } 100% { box-shadow: 0 0 10px #22c55e; } }
+
+        /* 📊 CARD STORAGE MATRIX */
+        .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 35px; }
+        .vortex-card { background: #0f0a26; border: 1px solid rgba(168, 85, 247, 0.1); padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); position: relative; }
+        .vortex-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, #c084fc, #e879f9); border-radius: 20px 0 0 20px; }
+        
+        .card-lbl { font-size: 0.85rem; color: #a855f7; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .card-val { font-size: 1.8rem; font-weight: 800; margin-top: 10px; color: #ffffff; }
+        .card-status { font-size: 0.9rem; margin-top: 8px; font-weight: 600; }
+
+        /* 🎛️ TWO COLUMN TOOLS LAYOUT */
+        .system-hub { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        
+        /* Left Panel - Price List */
+        .price-panel { background: #0f0a26; border: 1px solid rgba(168, 85, 247, 0.05); border-radius: 24px; padding: 30px; }
+        .panel-title { font-size: 1.3rem; font-weight: 700; color: #ffffff; margin-bottom: 20px; border-bottom: 1px solid rgba(168, 85, 247, 0.1); padding-bottom: 10px; }
+        
+        .crypto-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .crypto-info { display: flex; align-items: center; gap: 12px; font-weight: 700; }
+        .crypto-price-live { font-weight: 800; font-size: 1.1rem; }
+
+        /* Right Panel - Converter Engine */
+        .converter-panel { background: #0f0a26; border: 1px solid rgba(168, 85, 247, 0.05); border-radius: 24px; padding: 30px; }
+        .input-box { margin-bottom: 20px; }
+        .input-box label { display: block; font-size: 0.8rem; font-weight: 700; color: #a855f7; margin-bottom: 8px; }
+        .input-box input, .input-box select { width: 100%; background: #070412; border: 1px solid rgba(168, 85, 247, 0.15); padding: 14px; border-radius: 12px; color: #ffffff; font-size: 1rem; outline: none; -webkit-appearance: none; }
+        .input-box input:focus { border-color: #e879f9; }
+        
+        .btn-action { width: 100%; background: linear-gradient(135deg, #c084fc 0%, #e879f9 100%); color: #070412; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .btn-action:hover { transform: translateY(-2px); }
+        
+        .result-display { margin-top: 20px; padding: 15px; background: #070412; border-radius: 12px; text-align: center; font-weight: 700; font-size: 1.1rem; display: none; border: 1px solid rgba(168, 85, 247, 0.2); }
+        .result-display span { color: #e879f9; }
+
+        footer { text-align: center; padding: 30px; color: #4c1d95; font-size: 0.9rem; border-top: 1px solid rgba(168, 85, 247, 0.03); background: #070412; margin-top: 40px; font-weight: 600; }
+
+        /* ================= 📱 PHONE RESPONSIVE VIEWPORT PIPELINES ================= */
+        @media (max-width: 968px) { 
+            .system-hub { grid-template-columns: 1fr; gap: 25px; } 
+        }
+        @media (max-width: 600px) {
+            .vortex-nav { padding: 15px 4%; justify-content: center; gap: 20px; }
+            .vortex-nav a { font-size: 0.95rem; }
+            .dashboard-wrapper { padding: 25px 5%; }
+            .dash-header { justify-content: center; text-align: center; margin-bottom: 25px; }
+            .dash-title { font-size: 1.8rem; width: 100%; }
+            .analytics-grid { gap: 15px; margin-bottom: 25px; }
+            .vortex-card { padding: 20px; }
+            .card-val { font-size: 1.5rem; }
+            .price-panel, .converter-panel { padding: 20px; border-radius: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 📡 VORTEX NAV ROUTER -->
+    <nav class="vortex-nav">
+        <a href="vortex.html" class="active">🔮 Core Dashboard</a>
+        <a href="vortex-market.html">🛰️ Live Node Ledger</a>
+    </nav>
+
+    <!-- 🌌 LIVE MARQUEE TICKER LAYER -->
+    <div class="ticker-wrap">
+        <div class="ticker" id="liveTicker">
+            <div class="ticker-item">🔄 Synchronizing live blockchain nodes...</div>
+        </div>
+    </div>
+
+    <!-- 📡 DASHBOARD CONTENTS -->
+    <main class="dashboard-wrapper">
+        
+        <div class="dash-header">
+            <h1 class="dash-title">Vortex <span>Live Terminal</span></h1>
+            <div class="live-badge"><div class="pulse-dot"></div> LIVE REAL-TIME STREAMING</div>
+        </div>
+
+        <!-- 📊 CARD STORAGE MATRIX -->
+        <div class="analytics-grid">
+            <div class="vortex-card">
+                <p class="card-lbl">Bitcoin (BTC) Live Node</p>
+                <div class="card-val" id="btcCardPrice">$0.00</div>
+                <div class="card-status" id="btcCardChange">Fetching delta...</div>
+            </div>
+            <div class="vortex-card">
+                <p class="card-lbl">Ethereum (ETH) Live Node</p>
+                <div class="card-val" id="ethCardPrice">$0.00</div>
+                <div class="card-status" id="ethCardChange">Fetching delta...</div>
+            </div>
+            <div class="vortex-card">
+                <p class="card-lbl">Solana (SOL) Live Node</p>
+                <div class="card-val" id="solCardPrice">$0.00</div>
+                <div class="card-status" id="solCardChange">Fetching delta...</div>
+            </div>
+        </div>
+
+        <!-- 🎛️ CORE TOOLS OPERATION GRID -->
+        <div class="system-hub">
+            <!-- LEFT PANEL: CLEAN CRYPTO PRICE FEED -->
+            <div class="price-panel">
+                <h3 class="panel-title">Asset Node Feed Vectors</h3>
+                
+                <div class="crypto-row">
+                    <div class="crypto-info">🪙 Bitcoin (BTC)</div>
+                    <div class="crypto-price-live" id="btclistPrice">$0.00</div>
+                </div>
+                <div class="crypto-row">
+                    <div class="crypto-info">🔮 Ethereum (ETH)</div>
+                    <div class="crypto-price-live" id="ethlistPrice">$0.00</div>
+                </div>
+                <div class="crypto-row">
+                    <div class="crypto-info">🛰️ Solana (SOL)</div>
+                    <div class="crypto-price-live" id="sollistPrice">$0.00</div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: LIVE CONVERTER ENGINE -->
+            <div class="converter-panel">
+                <h3 class="panel-title">Live Asset Converter</h3>
+                <form id="convertEngineForm">
+                    <div class="input-box">
+                        <label>ENTER QUANTITY</label>
+                        <input type="number" id="assetQty" placeholder="e.g., 2" step="any" required>
+                    </div>
+                    <div class="input-box">
+                        <label>SELECT TOKEN NODE</label>
+                        <select id="tokenSelect">
+                            <option value="bitcoin">Bitcoin (BTC)</option>
+                            <option value="ethereum">Ethereum (ETH)</option>
+                            <option value="solana">Solana (SOL)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-action">Execute Valuation Node 🚀</button>
+                </form>
+                
+                <div class="result-display" id="valuationResult">
+                    Calculated Value: <span id="finalOutputValue">$0.00</span> USD
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>&copy; 2026 Vortex Systems. Engineered by AmanHotDev.</footer>
+
+    <!-- 🧠 REAL LIVE API STREAMING SCRIPT -->
+    <script>
+        let globalPrices = { bitcoin: 0, ethereum: 0, solana: 0 };
+
+        async function fetchLiveCryptoPrices() {
+            try {
+                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true");
+                const data = await response.json();
+
+                if (data) {
+                    globalPrices.bitcoin = data.bitcoin.usd;
+                    globalPrices.ethereum = data.ethereum.usd;
+                    globalPrices.solana = data.solana.usd;
+
+                    document.getElementById('btcCardPrice').innerText = '$' + data.bitcoin.usd.toLocaleString();
+                    document.getElementById('ethCardPrice').innerText = '$' + data.ethereum.usd.toLocaleString();
+                    document.getElementById('solCardPrice').innerText = '$' + data.solana.usd.toLocaleString();
+
+                    formatDelta('btcCardChange', data.bitcoin.usd_24h_change);
+                    formatDelta('ethCardChange', data.ethereum.usd_24h_change);
+                    formatDelta('solCardChange', data.solana.usd_24h_change);
+
+                    document.getElementById('btclistPrice').innerText = '$' + data.bitcoin.usd.toLocaleString();
+                    document.getElementById('ethlistPrice').innerText = '$' + data.ethereum.usd.toLocaleString();
+                    document.getElementById('sollistPrice').innerText = '$' + data.solana.usd.toLocaleString();
+
+                    const ticker = document.getElementById('liveTicker');
+                    ticker.innerHTML = `
+                        <div class="ticker-item">⚡ BTC/USD: <span style="color:${data.bitcoin.usd_24h_change >= 0 ? '#22c55e' : '#ef4444'}">$${data.bitcoin.usd.toLocaleString()} (${data.bitcoin.usd_24h_change.toFixed(2)}%)</span></div>
+                        <div class="ticker-item">🔮 ETH/USD: <span style="color:${data.ethereum.usd_24h_change >= 0 ? '#22c55e' : '#ef4444'}">$${data.ethereum.usd.toLocaleString()} (${data.ethereum.usd_24h_change.toFixed(2)}%)</span></div>
+                        <div class="ticker-item">🛰️ SOL/USD: <span style="color:${data.solana.usd_24h_change >= 0 ? '#22c55e' : '#ef4444'}">$${data.solana.usd.toLocaleString()} (${data.solana.usd_24h_change.toFixed(2)}%)</span></div>
+                    `;
+                }
+            } catch (error) {
+                console.error("Live streaming nodes connection latency issue:", error);
+            }
+        }
+
+        function formatDelta(elementId, value) {
+            const el = document.getElementById(elementId);
+            if(value >= 0) {
+                el.style.color = "#22c55e";
+                el.innerText = `▲ +${value.toFixed(2)}% (24h)`;
+            } else {
+                el.style.color = "#ef4444";
+                el.innerText = `▼ ${value.toFixed(2)}% (24h)`;
+            }
+        }
+
+        document.getElementById('convertEngineForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const qty = parseFloat(document.getElementById('assetQty').value);
+            const selectedToken = document.getElementById('tokenSelect').value;
+            const resultDisplay = document.getElementById('valuationResult');
+            const finalValueSpan = document.getElementById('finalOutputValue');
+
+            const liveTokenPrice = globalPrices[selectedToken];
+
+            if(!isNaN(qty) && liveTokenPrice) {
+                const totalValue = qty * liveTokenPrice;
+                finalValueSpan.innerText = '$' + totalValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                resultDisplay.style.display = 'block';
+            }
+        });
+
+        fetchLiveCryptoPrices();
+        setInterval(fetchLiveCryptoPrices, 5000);
+    </script>
+</body>
+</html>
